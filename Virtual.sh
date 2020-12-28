@@ -21,10 +21,9 @@ echo
 # Install Apache
 clear
 echo ------ INSTALL APACHE ------
-	sleep 5
-		sudo apt install apache2
-		echo
-		echo
+
+sleep 3
+	sudo apt install apache2
 clear
 ifconfig -all
 sleep 5
