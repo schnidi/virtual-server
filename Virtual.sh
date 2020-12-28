@@ -5,21 +5,17 @@ clear
 . /etc/os-release
 a="$VERSION_ID"
 echo
-	if test $a = "16.04"
+	if test $a = "18.04"
 		then
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
 			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian bionic contrib' | sudo tee -a /etc/apt/sources.list
-				elif test $a = "18.04"
+				elif test $a = "20.04"
 		then
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
 			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian focal contrib' | sudo tee -a /etc/apt/sources.list 
-				elif test $a = "20.04"
-			
-		then
-	  			else echo "Mate nepodporovane Distro"
+				else echo "Mate nepodporovane Distro"		
 		exit
-      
-	  
+
 	fi
 
 
