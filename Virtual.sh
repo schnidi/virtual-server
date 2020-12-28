@@ -13,9 +13,8 @@ echo
 		then
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
 			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian focal contrib' | sudo tee -a /etc/apt/sources.list 
-				else echo "Mate nepodporovane Distro"		
+	  			else echo "Mate nepodporovane Distro"
 		exit
-
 	fi
 
 
