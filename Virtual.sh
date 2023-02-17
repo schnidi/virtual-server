@@ -13,6 +13,10 @@ echo
 		then
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
 			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian focal contrib' | sudo tee -a /etc/apt/sources.list 
+				elif test $a = "22.04"
+		then
+			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
+			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian jammy contrib' | sudo tee -a /etc/apt/sources.list 
 	  			else echo "Mate nepodporovane Distro"
 		exit
 	fi
@@ -78,13 +82,23 @@ clear
 echo ------- INSTALL WEBMIN -------
 
 	sudo apt install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
-		sudo echo '#WEBMIN' | sudo tee -a /etc/apt/sources.list
-		sudo echo 'deb https://download.webmin.com/download/repository sarge contrib' | sudo tee -a /etc/apt/sources.list
-			wget http://www.webmin.com/jcameron-key.asc
-				sudo apt-key add jcameron-key.asc
-				sudo apt install apt-transport-https
-			sudo apt update
-		sudo apt install webmin
+	sudo echo '#WEBMIN' | sudo tee -a /etc/apt/sources.list
+	
+	if test $a = "20.04"
+		then
+			sudo echo 'deb https://download.webmin.com/download/repository sarge contrib' | sudo tee -a /etc/apt/sources.list
+				elif test $a = "22.04"
+		then
+			sudo echo 'deb https://download.webmin.com/download/repository jammy contrib' | sudo tee -a /etc/apt/sources.list
+				else echo "Mate nepodporovane Distro"
+				
+	wget http://www.webmin.com/jcameron-key.asc
+	sudo apt-key add jcameron-key.asc
+	sudo apt install apt-transport-https
+	
+	sudo apt update
+	
+	sudo apt install webmin
 		sleep 5
 clear
 
@@ -92,13 +106,20 @@ clear
 echo ------ INSTALL VirtualBox ------
 
 sleep 5
-	wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+	# Public Key
+		wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc
 		sudo apt-key add oracle_vbox_2016.asc
 		sudo apt update
-			read -p 'Actual Virtualbox Version (x.x): ' VirtVER
+		
+	# Install Virtualbox	
+		read -p 'Actual Virtualbox Version (x.x): ' VirtVER
 		sudo apt install virtualbox-$VirtVER
 		sudo /etc/init.d/virtualbox status
-sleep 5
+		sleep 5
+		
+	# Add user and group
+	
 		sudo useradd -m vbox -G vboxusers
 			echo -n "Enter your vbox user passwd [ENTER]: " ; sudo passwd vbox
 		sudo usermod -a -G disk vbox
