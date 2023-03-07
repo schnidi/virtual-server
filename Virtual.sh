@@ -1,27 +1,21 @@
 sudo apt install w3m
+sudo apt install net-tools
 sleep 5
 clear
 
 . /etc/os-release
 a="$VERSION_ID"
 echo
-	if test $a = "18.04"
-		then
+	if test $a = "20.04"
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
-			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian bionic contrib' | sudo tee -a /etc/apt/sources.list
-				elif test $a = "20.04"
-		then
-			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
-			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian focal contrib' | sudo tee -a /etc/apt/sources.list 
+			sudo echo 'deb https://download.virtualbox.org/virtualbox/debian focal contrib' | sudo tee -a /etc/apt/sources.list 
 				elif test $a = "22.04"
 		then
 			sudo echo '#VirtualBox' | sudo tee -a /etc/apt/sources.list
-			sudo echo 'deb http://download.virtualbox.org/virtualbox/debian jammy contrib' | sudo tee -a /etc/apt/sources.list 
+			sudo echo 'deb https://download.virtualbox.org/virtualbox/debian jammy contrib' | sudo tee -a /etc/apt/sources.list 
 	  			else echo "Mate nepodporovane Distro"
 		exit
 	fi
-
-
 
 # Install Apache
 clear
@@ -81,17 +75,9 @@ clear
 
 echo ------- INSTALL WEBMIN -------
 
-	sudo apt install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+	sudo apt install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python3
 	sudo echo '#WEBMIN' | sudo tee -a /etc/apt/sources.list
-	
-	if test $a = "20.04"
-		then
-			sudo echo 'deb https://download.webmin.com/download/repository sarge contrib' | sudo tee -a /etc/apt/sources.list
-				elif test $a = "22.04"
-		then
-			sudo echo 'deb https://download.webmin.com/download/repository jammy contrib' | sudo tee -a /etc/apt/sources.list
-				else echo "Mate nepodporovane Distro"
-				
+	sudo echo 'deb https://download.webmin.com/download/repository sarge contrib' | sudo tee -a /etc/apt/sources.list		
 	wget http://www.webmin.com/jcameron-key.asc
 	sudo apt-key add jcameron-key.asc
 	sudo apt install apt-transport-https
@@ -141,12 +127,11 @@ echo ------ INSTALL Extension pack ------
 echo
 t1="vboxmanage --version"
 t2=$($t1 | cut -c 1-3) 
-t3=$($t1 | cut -c 1-6)
+t3=$($t1 | cut -c 1-5)
 t4=$($t1 | cut -c 15-20)
 . /etc/os-release
 a="$NAME"
 Codename=$(lsb_release -c --short)
-
 
 echo 'http://download.virtualbox.org/virtualbox/'$t3'/''Oracle_VM_VirtualBox_Extension_Pack-'$t3'.vbox-extpack'
 wget 'http://download.virtualbox.org/virtualbox/'$t3'/''Oracle_VM_VirtualBox_Extension_Pack-'$t3'.vbox-extpack'
@@ -155,9 +140,10 @@ sudo VBoxManage extpack install 'Oracle_VM_VirtualBox_Extension_Pack-'$t3'.vbox-
 
 echo ------ Install phpVirtualBox ------
 
-  wget https://github.com/phpvirtualbox/phpvirtualbox/archive/develop.zip
+  wget https://github.com/phpvirtualbox/phpvirtualbox/archive/master.zip
+ 
 		#unzip
-		  unzip /var/www/develop.zip
+		  unzip develop.zip
 		  sudo mv phpvirtualbox-develop  /var/www/html/phpvirtualbox
 
 		#  configure virtualbox
